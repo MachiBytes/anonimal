@@ -11,7 +11,7 @@ export async function findUserByCognitoId(cognitoId: string): Promise<User | nul
     return null;
   }
 
-  return result.rows[0];
+  return result.rows[0] as User;
 }
 
 export async function createUser(
@@ -26,7 +26,7 @@ export async function createUser(
     [fullName, email, cognitoId]
   );
 
-  return result.rows[0];
+  return result.rows[0] as User;
 }
 
 export async function updateUser(
@@ -42,7 +42,7 @@ export async function updateUser(
     [fullName, email, cognitoId]
   );
 
-  return result.rows[0];
+  return result.rows[0] as User;
 }
 
 export async function findOrCreateUser(

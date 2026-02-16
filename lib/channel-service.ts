@@ -27,7 +27,7 @@ export class ChannelRepository {
       return null;
     }
 
-    return result.rows[0];
+    return result.rows[0] as Channel;
   }
 
   async findByOwnerId(ownerId: string): Promise<Channel[]> {
@@ -39,7 +39,7 @@ export class ChannelRepository {
       [ownerId]
     );
 
-    return result.rows;
+    return result.rows as Channel[];
   }
 
   async create(ownerId: string, name: string, code: string): Promise<Channel> {
@@ -50,7 +50,7 @@ export class ChannelRepository {
       [ownerId, name, code]
     );
 
-    return result.rows[0];
+    return result.rows[0] as Channel;
   }
 
   async updateStatus(channelId: string, status: 'open' | 'closed'): Promise<Channel> {
@@ -66,7 +66,7 @@ export class ChannelRepository {
       throw new Error('Channel not found');
     }
 
-    return result.rows[0];
+    return result.rows[0] as Channel;
   }
 
   async findById(channelId: string): Promise<Channel | null> {
@@ -81,7 +81,7 @@ export class ChannelRepository {
       return null;
     }
 
-    return result.rows[0];
+    return result.rows[0] as Channel;
   }
 }
 

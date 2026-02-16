@@ -50,7 +50,7 @@ export class AnonymousUserRepository {
       return null;
     }
 
-    return result.rows[0];
+    return result.rows[0] as AnonymousUser;
   }
 
   async create(
@@ -67,7 +67,7 @@ export class AnonymousUserRepository {
       [channelId, sessionId, name, iconUrl, iconBackgroundColor]
     );
 
-    return result.rows[0];
+    return result.rows[0] as AnonymousUser;
   }
 }
 

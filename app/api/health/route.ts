@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
-import { getPool } from '@/lib/db';
+import { getDb } from '@/lib/db';
 
 export async function GET() {
   try {
-    const pool = getPool();
-    const result = await pool.query('SELECT NOW()');
+    const db = getDb();
+    const result = db.prepare("SELECT datetime('now') as now").get() as { now: string };
     
     return NextResponse.json({
       status: 'ok',
       database: 'connected',
-      timestamp: result.rows[0].now,
+      timestamp: result.now,
     });
   } catch (error) {
     return NextResponse.json(

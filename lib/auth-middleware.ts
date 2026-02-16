@@ -29,7 +29,7 @@ export async function validateSession(
     return null;
   }
 
-  const user = result.rows[0];
+  const user = result.rows[0] as User;
 
   return {
     user,

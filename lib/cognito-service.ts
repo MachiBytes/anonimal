@@ -16,7 +16,7 @@ export interface UserInfo {
 }
 
 // Fallback function using native https module
-function httpsPost(url: string, body: string): Promise<any> {
+function httpsPost(url: string, body: string): Promise<TokenResponse> {
   return new Promise((resolve, reject) => {
     const urlObj = new URL(url);
     const options = {
@@ -45,7 +45,7 @@ function httpsPost(url: string, body: string): Promise<any> {
         if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
           try {
             resolve(JSON.parse(data));
-          } catch (e) {
+          } catch {
             reject(new Error('Failed to parse response: ' + data));
           }
         } else {

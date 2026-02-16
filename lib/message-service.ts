@@ -7,6 +7,19 @@ export interface PaginatedMessages {
   cursor: string | null;
 }
 
+interface MessageRow {
+  id: string;
+  channel_id: string;
+  anon_user_id: string;
+  content: string;
+  status: 'approved' | 'pending' | 'rejected';
+  sent_at: Date;
+  approved_at: Date | null;
+  name: string;
+  icon_url: string;
+  icon_background_color: string;
+}
+
 export class MessageRepository {
   /**
    * Create a new message with pending status
@@ -23,7 +36,7 @@ export class MessageRepository {
       [channelId, anonUserId, content]
     );
 
-    return result.rows[0];
+    return result.rows[0] as Message;
   }
 
   /**
@@ -42,7 +55,7 @@ export class MessageRepository {
       throw new Error('Message not found');
     }
 
-    return result.rows[0];
+    return result.rows[0] as Message;
   }
 
   /**
@@ -70,7 +83,7 @@ export class MessageRepository {
       return null;
     }
 
-    return result.rows[0];
+    return result.rows[0] as Message;
   }
 
   /**
@@ -89,7 +102,7 @@ export class MessageRepository {
       [channelId]
     );
 
-    return result.rows.map(row => ({
+    return (result.rows as MessageRow[]).map((row) => ({
       id: row.id,
       channel_id: row.channel_id,
       anon_user_id: row.anon_user_id,
@@ -127,7 +140,7 @@ export class MessageRepository {
     );
 
     // Reverse to get oldest first
-    const messages = result.rows.slice(0, 10).reverse().map(row => ({
+    const messages = (result.rows as MessageRow[]).slice(0, 10).reverse().map((row) => ({
       id: row.id,
       channel_id: row.channel_id,
       anon_user_id: row.anon_user_id,
@@ -172,7 +185,7 @@ export class MessageRepository {
       [channelId, anonUserId]
     );
 
-    return result.rows.map(row => ({
+    return (result.rows as MessageRow[]).map((row) => ({
       id: row.id,
       channel_id: row.channel_id,
       anon_user_id: row.anon_user_id,
@@ -204,7 +217,7 @@ export class MessageRepository {
       [channelId]
     );
 
-    return result.rows.map(row => ({
+    return (result.rows as MessageRow[]).map((row) => ({
       id: row.id,
       channel_id: row.channel_id,
       anon_user_id: row.anon_user_id,

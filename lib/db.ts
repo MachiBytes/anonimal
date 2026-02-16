@@ -13,6 +13,7 @@ export function getDb(): Database.Database {
     const dbPath = getDbPath();
     
     // Ensure the data directory exists
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const fs = require('fs');
     const dir = path.dirname(dbPath);
     if (!fs.existsSync(dir)) {
@@ -34,6 +35,7 @@ export function getDb(): Database.Database {
 }
 
 // Helper function to generate UUID-like strings (compatible with SQLite)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function generateId(): string {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
     const r = Math.random() * 16 | 0;
